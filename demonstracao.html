@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Assistente Virtual — Loja Horizonte</title>
+  <style>
+    :root { color-scheme: dark; font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: radial-gradient(circle at 75% 15%, #4033a6 0, transparent 28%), linear-gradient(135deg, #071329, #111b43 60%, #18124b); color: #f7f9ff; }
+    .page { width: min(1100px, 94vw); display: grid; grid-template-columns: 1fr 430px; gap: 70px; align-items: center; padding: 44px 0; }
+    .eyebrow { color: #55d9ff; font-weight: 750; letter-spacing: .14em; font-size: 13px; }
+    h1 { font-size: clamp(42px, 6vw, 72px); line-height: .98; margin: 18px 0 24px; letter-spacing: -.04em; }
+    .lead { color: #b9c4e1; font-size: 19px; line-height: 1.6; max-width: 570px; }
+    .features { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
+    .pill { border: 1px solid #465782; background: #152344aa; padding: 9px 13px; border-radius: 999px; color: #dce6ff; font-size: 13px; }
+    .chat { border: 1px solid #4a5d91; background: #0d1735e8; box-shadow: 0 30px 80px #0008, 0 0 60px #4a45d833; border-radius: 24px; overflow: hidden; min-height: 620px; display: grid; grid-template-rows: auto 1fr auto; }
+    .header { padding: 20px; display: flex; gap: 13px; align-items: center; border-bottom: 1px solid #2c3b65; background: #142149; }
+    .avatar { width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; background: linear-gradient(135deg, #26dcf2, #7356ff); font-weight: 900; color: #071329; }
+    .title { font-weight: 750; }
+    .status { font-size: 12px; color: #73e7ae; margin-top: 3px; }
+    .messages { padding: 22px; display: flex; flex-direction: column; gap: 14px; overflow: auto; }
+    .message { padding: 13px 15px; border-radius: 16px; max-width: 85%; line-height: 1.45; font-size: 14px; }
+    .bot { align-self: flex-start; background: #1d2b54; border-bottom-left-radius: 5px; }
+    .user { align-self: flex-end; background: linear-gradient(135deg, #237ccf, #6549e5); border-bottom-right-radius: 5px; }
+    .handoff { border: 1px solid #8c73ff; background: #30245d; }
+    .suggestions { padding: 0 18px 12px; display: flex; gap: 8px; flex-wrap: wrap; }
+    button { cursor: pointer; border: 1px solid #425583; background: #18264b; color: #edf3ff; border-radius: 999px; padding: 8px 11px; }
+    button:hover { border-color: #68dcff; }
+    form { padding: 16px; border-top: 1px solid #2c3b65; display: flex; gap: 10px; }
+    input { flex: 1; border: 1px solid #394c78; background: #0b1430; color: white; border-radius: 14px; padding: 13px; outline: none; }
+    form button { border: 0; background: linear-gradient(135deg, #2bcae4, #7155f6); font-weight: 800; padding-inline: 17px; }
+    @media (max-width: 850px) { .page { grid-template-columns: 1fr; gap: 35px; } .chat { min-height: 560px; } }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section>
+      <div class="eyebrow">AUTOMAÇÃO DE ATENDIMENTO</div>
+      <h1>Respostas rápidas.<br>Atendimento humano quando importa.</h1>
+      <p class="lead">Demonstração de um assistente virtual configurável, com identificação de intenção, respostas seguras e transferência de conversas não reconhecidas.</p>
+      <div class="features">
+        <span class="pill">Base de conhecimento</span>
+        <span class="pill">API de integração</span>
+        <span class="pill">Fallback seguro</span>
+        <span class="pill">Histórico auditável</span>
+      </div>
+    </section>
+    <section class="chat" aria-label="Demonstração do assistente virtual">
+      <header class="header">
+        <div class="avatar">IA</div>
+        <div><div class="title">Assistente Horizonte</div><div class="status">● Disponível agora</div></div>
+      </header>
+      <div class="messages" id="messages">
+        <div class="message bot">Olá! Sou o assistente virtual da Loja Horizonte. Como posso ajudar?</div>
+      </div>
+      <div>
+        <div class="suggestions">
+          <button type="button" data-message="Qual é o prazo de entrega?">Prazo de entrega</button>
+          <button type="button" data-message="Posso pagar com Pix?">Pagamento</button>
+          <button type="button" data-message="Quero falar com um atendente">Falar com atendente</button>
+        </div>
+        <form id="form">
+          <input id="input" autocomplete="off" placeholder="Digite sua mensagem..." aria-label="Mensagem">
+          <button type="submit">Enviar</button>
+        </form>
+      </div>
+    </section>
+  </main>
+  <script>
+    const respostas = [
+      { termos: ['prazo', 'entrega', 'chegar'], texto: 'O prazo varia conforme o CEP e aparece antes da confirmação do pedido.' },
+      { termos: ['pagamento', 'pix', 'cartão', 'cartao'], texto: 'Aceitamos Pix e cartão de crédito. As condições aparecem no fechamento da compra.' },
+      { termos: ['troca', 'devolução', 'devolucao'], texto: 'Informe o número do pedido e o motivo. A equipe continuará o atendimento.' }
+    ];
+    const messages = document.querySelector('#messages');
+    const input = document.querySelector('#input');
+    function add(texto, tipo, extra = '') {
+      const item = document.createElement('div');
+      item.className = `message ${tipo} ${extra}`;
+      item.textContent = texto;
+      messages.append(item);
+      messages.scrollTop = messages.scrollHeight;
+    }
+    function responder(mensagem) {
+      add(mensagem, 'user');
+      const normalizada = mensagem.toLocaleLowerCase('pt-BR');
+      const humano = ['atendente', 'humano', 'pessoa'].some(t => normalizada.includes(t));
+      const encontrada = respostas.find(r => r.termos.some(t => normalizada.includes(t)));
+      setTimeout(() => {
+        if (humano) add('Claro. Vou encaminhar seu atendimento para uma pessoa da equipe.', 'bot', 'handoff');
+        else if (encontrada) add(encontrada.texto, 'bot');
+        else add('Não encontrei uma resposta segura. Vou encaminhar sua dúvida para a equipe.', 'bot', 'handoff');
+      }, 350);
+    }
+    document.querySelectorAll('[data-message]').forEach(b => b.addEventListener('click', () => responder(b.dataset.message)));
+    document.querySelector('#form').addEventListener('submit', event => {
+      event.preventDefault();
+      if (input.value.trim()) responder(input.value.trim());
+      input.value = '';
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+{
+  "empresa": "Loja Horizonte",
+  "mensagem_boas_vindas": "Olá! Sou o assistente virtual da Loja Horizonte. Como posso ajudar?",
+  "mensagem_fallback": "Não encontrei uma resposta segura para essa dúvida. Vou encaminhar seu atendimento para uma pessoa da equipe.",
+  "intencoes": [
+    {
+      "nome": "prazo_entrega",
+      "palavras_chave": ["prazo", "entrega", "chegar", "receber", "demora"],
+      "resposta": "O prazo de entrega varia conforme o CEP e aparece antes da confirmação do pedido. Se você informar o número do pedido, a equipe pode consultar o andamento."
+    },
+    {
+      "nome": "rastrear_pedido",
+      "palavras_chave": ["rastrear", "rastreio", "pedido", "status", "onde esta"],
+      "resposta": "Você pode acompanhar o pedido pelo link de rastreio enviado após a postagem. Se não recebeu o link, informe o número do pedido para encaminharmos à equipe."
+    },
+    {
+      "nome": "troca_devolucao",
+      "palavras_chave": ["troca", "trocar", "devolucao", "devolver", "defeito"],
+      "resposta": "Para solicitar troca ou devolução, envie o número do pedido e uma breve descrição do motivo. A equipe continuará o atendimento e orientará os próximos passos."
+    },
+    {
+      "nome": "formas_pagamento",
+      "palavras_chave": ["pagamento", "pix", "cartao", "boleto", "parcelar"],
+      "resposta": "Aceitamos Pix e cartão de crédito. As condições de parcelamento são exibidas no fechamento da compra."
+    },
+    {
+      "nome": "horario_atendimento",
+      "palavras_chave": ["horario", "atendente", "funcionamento", "abre", "fecha"],
+      "resposta": "O atendimento humano funciona de segunda a sexta, das 9h às 18h. Fora desse horário, sua solicitação fica registrada para o próximo período útil."
+    }
+  ]
+}
