@@ -8,7 +8,7 @@ O exemplo usa uma loja fictícia e não contém dados, credenciais ou integraç�
 
 ## Fluxo da solução
 
-![Fluxo do atendimento com IA](assets/02-fluxo-atendimento-ia.png)
+![Fluxo do atendimento com IA](assets/02-fluxo-atendimento-ia.png)\n\n## Demonstração visual\n\n![Conversa com o assistente virtual](assets/03-demonstracao-chat.png)\n\n![Painel de atendimento com métricas e encaminhamentos](assets/04-painel-atendimento.png)
 
 O cliente conversa com o assistente, que consulta a base de conhecimento antes de responder. Quando a solicitação exige análise ou não possui resposta segura, o fluxo encaminha o histórico para atendimento humano. Os registros também permitem acompanhar dúvidas recorrentes e oportunidades de melhoria.
 
@@ -23,7 +23,7 @@ Equipes de atendimento perdem tempo respondendo repetidamente dúvidas sobre ent
 - respostas estruturadas com intenção e grau de confiança;
 - fallback seguro e encaminhamento para atendimento humano;
 - pedido explícito de atendente respeitado imediatamente;
-- histórico opcional em JSONL para auditoria;
+- histórico opcional em JSONL para auditoria;\n- painel demonstrativo com métricas, histórico e encaminhamentos;
 - API HTTP pronta para conexão com site, CRM ou canal de mensagens;
 - testes automatizados dos principais fluxos.
 
