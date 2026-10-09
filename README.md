@@ -33,7 +33,7 @@ Este MVP usa classificação determinística para funcionar sem credenciais paga
 
 É necessário Python 3.10 ou superior. Nenhuma biblioteca externa é exigida.
 
-Para conhecer a interface, abra `demonstracao.html` no navegador. Ela simula os principais fluxos de forma interativa e não envia nenhum dado para a internet.
+Para conhecer a interface, abra `painel.html` no navegador. Ela simula os principais fluxos, atualiza métricas da sessão e não envia nenhum dado para a internet. A versão original permanece disponível em `demonstracao.html`.
 
 ```powershell
 python chatbot.py "Qual é o prazo da entrega?"
